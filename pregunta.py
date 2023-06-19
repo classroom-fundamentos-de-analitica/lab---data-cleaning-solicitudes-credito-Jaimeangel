@@ -23,7 +23,6 @@ def clean_data():
         else:
             return datetime.strptime(x, "%Y/%m/%d")
 
-    df=df.dropna()
 
     df['sexo'] = df['sexo'].str.lower();
     df['tipo_de_emprendimiento'] = df['tipo_de_emprendimiento'].str.lower();
@@ -33,7 +32,6 @@ def clean_data():
     df['comuna_ciudadano'] = df['comuna_ciudadano'].astype(int)
     df['monto_del_credito']=df['monto_del_credito'].apply(lambda x: x.strip("$").replace(",","")).astype(float)
     df['fecha_de_beneficio'] = df['fecha_de_beneficio'].apply(convertir_fecha)
-    df=df.drop_duplicates()
 
     return df
 clean_data()

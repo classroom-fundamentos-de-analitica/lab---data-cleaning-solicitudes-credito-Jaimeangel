@@ -12,7 +12,7 @@ from datetime import datetime
 
 def clean_data():
 
-    df = pd.read_csv("solicitudes_credito.csv", sep=";")
+    df = pd.read_csv("solicitudes_credito.csv", sep=";",index_col=0)
 
     #
     # Inserte su código aquí
@@ -23,7 +23,7 @@ def clean_data():
         else:
             return datetime.strptime(x, "%Y/%m/%d")
 
-
+    df=df.dropna()
     df['sexo'] = df['sexo'].str.lower();
     df['tipo_de_emprendimiento'] = df['tipo_de_emprendimiento'].str.lower();
     df['idea_negocio']=df['idea_negocio'].apply(lambda x: x.lower().replace("_", " ").replace("-", " "))
@@ -32,6 +32,6 @@ def clean_data():
     df['comuna_ciudadano'] = df['comuna_ciudadano'].astype(int)
     df['monto_del_credito']=df['monto_del_credito'].apply(lambda x: x.strip("$").replace(",","")).astype(float)
     df['fecha_de_beneficio'] = df['fecha_de_beneficio'].apply(convertir_fecha)
-
+    df=df.drop_duplicates()
     return df
 clean_data()
